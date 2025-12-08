@@ -1,0 +1,194 @@
+.container {
+    height: 100vh;
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        height: 100%;
+
+        .formConnection {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            margin-left: 100px;
+            gap: 50px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+
+            .conecter {
+                color: white;
+                font-size: 50px;
+                font-weight: bolder;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                width: 100%;
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    label {
+                        font-weight: bold;
+                        font-size: 20px;
+                        color: #5c646e;
+                    }
+
+                    input {
+                        background-color: #313840;
+                        padding: 15px;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        outline: none;
+                        font-size: 15px;
+                    }
+
+                    ::placeholder {
+                        color: #858c93;
+                    }
+                }
+
+                button {
+                    width: fit-content;
+                    align-self: flex-start;
+                    background: linear-gradient(to left, #5ddcf0, #77e2c4);
+                    color: white;
+                    padding: 10px 40px;
+                    border: none;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: background-color 0.3s ease;
+
+                    &:hover {
+                        background-color: #5cd1b3;
+                    }
+                }
+            }
+        }
+
+        .rightSideBar {
+            height: 100%;
+            display: flex;
+            // align-items: start;
+            justify-content: end;
+
+            .rightSideBarContent {
+                background: linear-gradient(to left, #5ddcf0, #77e2c4);
+                width: 70%;
+                padding: 0 10px;
+                height: 100%;
+                border-radius: 10px 0 0 50%;
+                display: flex;
+                align-items: center;
+                justify-self: center;
+
+                .greeting {
+                    font-size: 50px;
+                    color: white;
+                    font-weight: bolder;
+                    margin: 50px;
+                    text-align: center;
+
+                }
+
+                .texte {
+                    text-align: center;
+                    color: #ffffffe0;
+                    font-size: 20px;
+                }
+
+                button{
+                    width: fit-content;
+                    background: transparent;
+                    color: white;
+                    padding: 10px 40px;
+                    border: 2px solid white;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: background-color 0.3s ease;
+                    margin-top: 20px;
+
+                    &:hover {
+                        background-color: white;
+                        color: #5ddcf0;
+                    }
+                }
+            }
+        }
+        .formInscription {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            margin-right: 100px;
+            gap: 50px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+
+            .conecter {
+                color: white;
+                font-size: 50px;
+                font-weight: bolder;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                width: 100%;
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    label {
+                        font-weight: bold;
+                        font-size: 20px;
+                        color: #5c646e;
+                    }
+
+                    input {
+                        background-color: #313840;
+                        padding: 15px;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        outline: none;
+                        font-size: 15px;
+                    }
+
+                    ::placeholder {
+                        color: #858c93;
+                    }
+                }
+
+                button {
+                    width: fit-content;
+                    align-self: flex-start;
+                    background: linear-gradient(to left, #5ddcf0, #77e2c4);
+                    color: white;
+                    padding: 10px 40px;
+                    border: none;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: background-color 0.3s ease;
+
+                    &:hover {
+                        background-color: #5cd1b3;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+<div class="containt">
+    <nav>
+        <h1>Tasks<span>Flow</span></h1>
+        <div class="navigation">
+            <a  *ngFor="let nav of navigation" (click)="undeline(nav)">{{nav}}</a>
+        </div>
+        <div class="theme">
+            <div class="account">
+                <img src="/person.png" alt="">
+                <p>{{name}}</p>
+            </div>
+            <div class="type">
+                <img src="/logout.png" alt="">
+                <p (click)="logout()" >Se deconnecter</p>
+            </div>
+        </div>
+    </nav>
+</div>

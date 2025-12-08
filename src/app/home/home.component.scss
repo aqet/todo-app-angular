@@ -1,0 +1,184 @@
+.container {
+    max-width: 1000px;
+    margin: auto;
+
+    .content {
+        padding: 0 10px;
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+
+            h1 {
+                font-size: 30px;
+                font-weight: bolder;
+                color: white;
+            }
+
+            button {
+                text-align: center;
+                background-color: #161c2a;
+                color: white;
+                font-size: 30px;
+                border-radius: 5px;
+                cursor: pointer;
+                height: 40px;
+                width: 40px;
+                border: none;
+                box-shadow: 1px 1px 10px #00000082;
+            }
+
+            :active {
+                box-shadow: none;
+            }
+        }
+
+        .body {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            min-height: 400px;
+
+            .table {
+                // background-color: red;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 10px;
+                border-radius: 20px;
+                height: 100%;
+                color: white;
+
+                .task-list {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+
+                    .task-containt {
+                        background-color: #1c222e;
+                        padding: 5px 0;
+                        border-radius: 10px;
+
+                        .task {
+                            // border-left: 5px solid ;
+                            display: flex;
+                            flex-direction: column;
+                            padding: 5px;
+                            gap: 15px;
+                            cursor: grab;
+
+                            .head {
+                                margin: 0;
+                                display: flex;
+                                justify-content: start;
+                                gap: 10px;
+
+                                p {
+                                    color: white;
+                                }
+                            }
+
+                            .bottom {
+                                display: flex;
+                                justify-content: space-between;
+
+                                .time,
+                                .name {
+                                    display: flex;
+                                    align-items: center;
+                                    color: rgba(255, 255, 255, 0.651);
+                                    gap: 5px;
+                                }
+                            }
+                        }
+
+                        :active {
+                            cursor: grabbing;
+                        }
+                    }
+                }
+            }
+
+            .cdk-drag-placeholder {
+                opacity: 0;
+            }
+        }
+
+        .modal {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .div {
+                background-color: #161c2a;
+                padding: 20px;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                width: 300px;
+
+                header {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: white;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    div {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+
+                    .buttonClose {
+                        background: none;
+                        border: none;
+
+                        .close {
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .modalBody {
+                    display: flex;
+                    gap: 15px;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0 10px;
+
+                    input {
+                        padding: 5px;
+                        border-radius: 5px;
+                        border: none;
+                        outline: none;
+                        width: 100%;
+                    }
+
+                    button {
+                        background-color: rgb(97 114 130);
+                        color: white;
+                        font-size: 16px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        height: 30px;
+                        width: 80px;
+                        border: none;
+                        box-shadow: 1px 1px 10px #00000082;
+                    }
+                }
+            }
+        }
+    }
+}

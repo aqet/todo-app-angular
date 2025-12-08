@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="content">
+        <div class="head">
+            <h1>Ma to-do-list word</h1>
+            <button (click)="openCloseModal()">+</button>
+        </div>
+        <div class="body">
+            <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="table.tasks"
+                [cdkDropListConnectedTo]="lists" (cdkDropListDropped)="drop($event)"
+                [ngStyle]="{'background-color': table.title=='A faire' ? '#434a54' : table.title=='En cours' ? '#617282' : '#5d7865' }"
+                class="table example-container" *ngFor="let table of tables">
+                <h2>{{table.title}}</h2>
+                <div class="task-list">
+                    <div cdkDrag [cdkDragData]="task" class="task-containt example-box" *ngFor="let task of table.tasks">
+                        <div [ngStyle]="{'border-left': table.title =='A faire' ? '5px solid #f1a964' : table.title=='En cours' ? '5px solid rgb(122 172 219)' : '5px solid rgb(126 221 154)' }"
+                            class="task">
+                            <div class="head">
+                                <img style="background-color: rgba(255, 255, 255, 0.212); border-radius: 5px;" [ngSrc]="
+                                    table.title =='A faire' ? '/list.png' 
+                                    : table.title=='En cours' ? '/en_cour.png' 
+                                    : '/check.png'" width="32" height="32" alt="">
+                                <p>{{task.name}}</p>
+                            </div>
+                            <div class="bottom">
+                                <div class="time">
+                                    <img src="/time.png" alt="">
+                                    <p>{{ table.title=="A faire" ? (task.date | date:'short') : (task.update | date:'short')}}</p>
+                                </div>
+                                <div class="name">
+                                    <p>{{task.username}}</p>
+                                    <img src="/people.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" *ngIf="modal">
+            <div class="div">
+                <header>
+                    <div><img src="add_task.png" alt="">Ajouter une tache</div>
+                    <button class="buttonClose" (click)="openCloseModal()"><img class="close" src="close.png" alt="" ></button>
+                </header>
+                <div class="modalBody">
+                    <input type="text">
+                    <button (click)="addtask()">Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

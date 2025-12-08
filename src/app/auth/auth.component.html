@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="content">
+        <div *ngIf="mode=='login'"  class="formConnection">
+            <p class="conecter">Se conecter</p>
+            <form [formGroup]="form" (submit)="submit('login')">
+                <div>
+                    <label  for="user">Nom d'utilisateur</label>
+                    <input formControlName="Username" id="user" type="text" placeholder="Nom d'utilisateur" />
+                </div>
+                <div>
+                    <label  for="password">Mot de passe</label>
+                    <input formControlName="password" id="password" type="password" placeholder="Mot de passe" />
+                </div>
+                <button type="submit">Connexion</button>
+            </form>
+        </div>
+        <div class="rightSideBar">
+            <div class="rightSideBarContent">
+                <div *ngIf="mode=='login'"
+                    style="max-height: 300px; height: 100%; display: flex; align-items: center; flex-direction: column;">
+                    <div>
+                        <p class="greeting">Re-bonjour!</p>
+                        <p class="texte">Bienvenue ! Remplissez les informations ci-dessous pour rejoindre notre
+                            communauté et accéder à des ressources exclusives. Votre inscription est rapide et gratuite.
+                        </p>
+                    </div>
+                    <button (click)="switchTo()" type="submit">S'inscrire</button>
+                </div>
+                <div *ngIf="mode!=='login'"
+                    style="max-height: 300px; height: 100%; display: flex; align-items: center; flex-direction: column;">
+                    <div>
+                        <p class="greeting">Bonjour!</p>
+                        <p class="texte">Bienvenue ! Veuillez vous connecter à votre espace. Si vous avez des questions,
+                            contactez le support pour obtenir de l'aide. N'oubliez pas de sécuriser votre compte en
+                            utilisant un mot de passe fort. </p>
+                    </div>
+                    <button (click)="switchTo()" type="submit">Se connecter</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="mode!=='login'"  class="formInscription">
+            <p class="conecter">S'inscrire</p>
+            <form [formGroup]="form" (submit)="submit('register')">
+                <div>
+                    <label for="email">E-mail</label>
+                    <input formControlName="email" id="email" type="email" placeholder="E-mail" />
+                </div>
+                <div>
+                    <label  for="user">Nom d'utilisateur</label>
+                    <input formControlName="Username" id="user" type="text" placeholder="Nom d'utilisateur" />
+                </div>
+                <div>
+                    <label for="password">Mot de passe</label>
+                    <input formControlName="password"
+                     id="password" type="password" placeholder="Mot de passe" />
+                </div>
+                <button type="submit">Inscription</button>
+            </form>
+        </div>
+    </div>
+</div>

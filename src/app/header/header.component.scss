@@ -1,0 +1,88 @@
+.containt {
+  background-color: #2a344b;
+
+  nav {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    // padding: 0 10px;
+    max-width: 1000px;
+    margin: auto;
+
+    h1 {
+      color: white;
+      cursor: pointer;
+
+      span {
+        color: rgb(150 150 221);
+      }
+    }
+
+    .navigation {
+      display: flex;
+      gap: 15px;
+      color: #ffffff8a;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      a {
+        height: 100%;
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .buttonCliked {
+        color: white;
+        border-bottom: 10px solid white;
+      }
+    }
+
+    .theme {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+
+      .account {
+        // width: 20px;
+        height: 30px;
+        display: flex;
+        gap: 5px;
+        // align-items: center;
+        cursor: pointer;
+
+        img {
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.082);
+          padding: 2px;
+        }
+
+        p {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .type {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.226);
+        border-radius: 50px;
+        padding: 5px 10px;
+        cursor: pointer;
+
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}
