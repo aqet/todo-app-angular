@@ -11,6 +11,7 @@ import {
 import { ViewChildren, QueryList } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../service/auth.service';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-home',
@@ -50,17 +51,39 @@ export class HomeComponent implements OnInit {
   }
 
   gettask() {
-    this.taskService.allTasks().subscribe((data: any) => {
-      data.map((els: any) => {
-        els?.tasks.map((el: any) => {
-          this.getUserName(el.user).subscribe((data: any) => {
-            el.username = data.Username;
+    this.taskService.allTasks().subscribe({
+      next: (data: any) => {
+        console.log(data);
+
+        data.map((els: any) => {
+          els?.tasks.map((el: any) => {
+            this.getUserName(el.user).subscribe((data: any) => {
+              el.username = data.Username;
+            });
           });
         });
-      });
-      this.tables=data
+        this.tables = data;
 
-      // this.taskService.tables = data;
+        // this.taskService.tables = data;
+      },
+      error: (err) => {
+        if (err.message.includes('Unauthorized')) {
+          console.log('yes');
+          this.authService.refreshToken().subscribe(
+            (res: any) => {
+              localStorage.setItem('token', JSON.stringify(res.token));
+              localStorage.setItem(
+                'RefreshToken',
+                JSON.stringify(res.RefreshToken)
+              );
+              this.gettask();
+            },
+            (error) => {
+              this.authService.logout();
+            }
+          );
+        }
+      },
     });
   }
 
@@ -68,9 +91,30 @@ export class HomeComponent implements OnInit {
     const task = document.querySelector('input')?.value;
 
     if (task) {
-      this.taskService.addTask(task);
-      this.gettask();
-      this.openCloseModal();
+      this.taskService.addTask(task).subscribe({
+        next: () => {
+          this.gettask();
+          this.openCloseModal();
+        },
+        error: (err) => {
+          if (err.message.includes('Unauthorized')) {
+            console.log('yes');
+            this.authService.refreshToken().subscribe(
+              (res: any) => {
+                localStorage.setItem('token', JSON.stringify(res.token));
+                localStorage.setItem(
+                  'RefreshToken',
+                  JSON.stringify(res.RefreshToken)
+                );
+                this.gettask();
+              },
+              (error) => {
+                this.authService.logout();
+              }
+            );
+          }
+        },
+      });
     }
   }
 

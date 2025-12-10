@@ -47,6 +47,7 @@ export class AuthComponent {
               localStorage.setItem('user', JSON.stringify(res.Username)),
               localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
               localStorage.setItem('token', JSON.stringify(res.token)),
+              localStorage.setItem('RefreshToken', JSON.stringify(res.RefreshToken)),
               this.router.navigateByUrl('/home')
             )
           )
@@ -57,6 +58,7 @@ export class AuthComponent {
             localStorage.setItem('user', JSON.stringify(res.Username)),
               localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
               localStorage.setItem('token', JSON.stringify(res.token)),
+              localStorage.setItem('RefreshToken', JSON.stringify(res.RefreshToken)),
               this.router.navigateByUrl('/home')
             ):(
               alert('Login failed! Please check your username and password.')

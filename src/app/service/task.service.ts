@@ -35,18 +35,16 @@ export class taskService {
 
   addTask(task: string) {
     const accessToken = JSON.parse(localStorage.getItem('token') || '');
-    return this.http
-      .patch(
-        'http://localhost:3000/todos/',
-        { task: task },
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + accessToken,
-          }),
-        }
-      )
-      .subscribe();
+    return this.http.patch(
+      'http://localhost:3000/todos/',
+      { task: task },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        }),
+      }
+    );
   }
 
   updateTask(task: {}, last: string, next: string) {

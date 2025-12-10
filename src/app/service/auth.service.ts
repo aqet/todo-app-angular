@@ -41,7 +41,6 @@ export class AuthService {
 
   getUserName(id: string) {
     const accessToken = JSON.parse(localStorage.getItem('token') || '');
-    console.log('Bearer ' + accessToken);
     
     return this.http.post('http://localhost:3000/auth/user', {id: id}, {
       headers: new HttpHeaders({
@@ -49,5 +48,16 @@ export class AuthService {
         Authorization: 'Bearer ' + accessToken,
       }),
     });
+  }
+
+  refreshToken(){
+    const accessToken = JSON.parse(localStorage.getItem('RefreshToken') || '');
+    return this.http.post('http://localhost:3000/auth/refresh', {token: accessToken}, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + accessToken,
+      }),
+    });
+
   }
 }
