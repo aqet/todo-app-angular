@@ -45,6 +45,7 @@ export class AuthComponent {
           .subscribe(
             (res: any) => (
               localStorage.setItem('user', JSON.stringify(res.Username)),
+              localStorage.setItem('mail', JSON.stringify(res.Mail)),
               localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
               localStorage.setItem('token', JSON.stringify(res.token)),
               localStorage.setItem('RefreshToken', JSON.stringify(res.RefreshToken)),
@@ -56,6 +57,7 @@ export class AuthComponent {
           .subscribe((res: any) => {
             res.isLogged == true ? (
             localStorage.setItem('user', JSON.stringify(res.Username)),
+            localStorage.setItem('mail', JSON.stringify(res.Mail)),
               localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
               localStorage.setItem('token', JSON.stringify(res.token)),
               localStorage.setItem('RefreshToken', JSON.stringify(res.RefreshToken)),

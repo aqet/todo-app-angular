@@ -89,9 +89,11 @@ export class HomeComponent implements OnInit {
 
   addtask() {
     const task = document.querySelector('input')?.value;
-
+    const mail = JSON.parse(localStorage.getItem('mail')??'');
+    const user = JSON.parse(localStorage.getItem('user')??'');
+    const info = {task, mail, user}
     if (task) {
-      this.taskService.addTask(task).subscribe({
+      this.taskService.addTask(info).subscribe({
         next: () => {
           this.gettask();
           this.openCloseModal();

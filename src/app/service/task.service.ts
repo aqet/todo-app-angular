@@ -33,11 +33,11 @@ export class taskService {
     });
   }
 
-  addTask(task: string) {
+  addTask(info:{task: any, mail: any}) {
     const accessToken = JSON.parse(localStorage.getItem('token') || '');
     return this.http.patch(
       'http://localhost:3000/todos/',
-      { task: task },
+      { info: info },
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -55,6 +55,8 @@ export class taskService {
         'http://localhost:3000/todos/update',
         {
           task: task,
+          user: JSON.parse(localStorage.getItem('user') || ''),
+          mail: JSON.parse(localStorage.getItem('mail') || ''),
           last: last,
           next: next,
         },
