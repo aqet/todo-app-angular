@@ -1,9 +1,104 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-body, html{
-    background-color: #141b25;
+:root {
+    /* Dark Theme */
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f2e;
+    --bg-tertiary: #252d3d;
+    --bg-card: #1e2533;
+    --text-primary: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --accent-primary: #6366f1;
+    --accent-secondary: #8b5cf6;
+    --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --border: rgba(255, 255, 255, 0.08);
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+    
+    /* Task columns */
+    --todo-bg: #434a54;
+    --progress-bg: #617282;
+    --done-bg: #5d7865;
+    --todo-border: #f1a964;
+    --progress-border: #7aacdb;
+    --done-border: #7edd9a;
+}
+
+body.light-theme {
+    --bg-primary: #f8fafcba;
+    --bg-secondary: #0000003b;
+    --bg-tertiary: #f1f5f9;
+    --bg-card: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --accent-primary: #6366f1;
+    --accent-secondary: #8b5cf6;
+    --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --border: rgba(0, 0, 0, 0.08);
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+    
+    /* Task columns - Light mode */
+    --todo-bg: #fef3c7;
+    --progress-bg: #dbeafe;
+    --done-bg: #d1fae5;
+    --todo-border: #f59e0b;
+    --progress-border: #3b82f6;
+    --done-border: #10b981;
+}
+
+body,
+html {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}
+
+/* Light theme image adjustments */
+body.light-theme {
+    img[src*="mode.png"],
+    img[src*="person.png"],
+    img[src*="logout.png"],
+    img[src*="time.png"],
+    img[src*="people.png"],
+    img[src*="list.png"],
+    img[src*="en_cour.png"],
+    img[src*="check.png"],
+    img[src*="add_task.png"],
+    img[src*="close.png"] {
+        filter: brightness(0.3);
+    }
 }

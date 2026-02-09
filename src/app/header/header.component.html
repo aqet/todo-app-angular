@@ -5,6 +5,10 @@
             <a  *ngFor="let nav of navigation" (click)="undeline(nav)">{{nav}}</a>
         </div>
         <div class="theme">
+            <div class="mode" (click)="themeService.toggleTheme()">
+                <img src="/mode.png" alt="">
+                <p>{{ (themeService.darkMode$ | async) ? 'Clair' : 'Sombre' }}</p>
+            </div>
             <div class="account">
                 <img src="/person.png" alt="">
                 <p>{{name}}</p>

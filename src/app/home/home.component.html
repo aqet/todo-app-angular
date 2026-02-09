@@ -1,34 +1,63 @@
-<div class="container">
-    <div class="content">
-        <div class="head">
-            <h1>Ma to-do-list word</h1>
-            <button (click)="openCloseModal()">+</button>
+<div class="home-wrapper">
+    <div class="home-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+    </div>
+
+    <div class="home-container">
+        <div class="home-header">
+            <div class="header-content">
+                <h1>Mes Tâches</h1>
+                <p>Organisez et suivez vos projets efficacement</p>
+            </div>
+            <button class="add-task-btn" (click)="openCloseModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                </svg>
+                Nouvelle tâche
+            </button>
         </div>
-        <div class="body">
+
+        <div class="columns-grid">
             <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="table.tasks"
                 [cdkDropListConnectedTo]="lists" (cdkDropListDropped)="drop($event)"
-                [ngStyle]="{'background-color': table.title=='A faire' ? '#434a54' : table.title=='En cours' ? '#617282' : '#5d7865' }"
-                class="table example-container" *ngFor="let table of tables">
-                <h2>{{table.title}}</h2>
-                <div class="task-list">
-                    <div cdkDrag [cdkDragData]="task" class="task-containt example-box" *ngFor="let task of table.tasks">
-                        <div [ngStyle]="{'border-left': table.title =='A faire' ? '5px solid #f1a964' : table.title=='En cours' ? '5px solid rgb(122 172 219)' : '5px solid rgb(126 221 154)' }"
-                            class="task">
-                            <div class="head">
-                                <img style="background-color: rgba(255, 255, 255, 0.212); border-radius: 5px;" [ngSrc]="
-                                    table.title =='A faire' ? '/list.png' 
-                                    : table.title=='En cours' ? '/en_cour.png' 
-                                    : '/check.png'" width="32" height="32" alt="">
-                                <p>{{task.name}}</p>
-                            </div>
-                            <div class="bottom">
-                                <div class="time">
-                                    <img src="/time.png" alt="">
-                                    <p>{{ table.title=="A faire" ? (task.date | date:'short') : (task.update | date:'short')}}</p>
+                [attr.data-column]="table.title"
+                class="task-column" *ngFor="let table of tables">
+                <div class="column-header">
+                    <div class="column-title">
+                        <div class="column-icon" [attr.data-type]="table.title">
+                            <svg *ngIf="table.title === 'A faire'" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3Z"/>
+                            </svg>
+                            <svg *ngIf="table.title === 'En cours'" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13,2.03V2.05L13,4.05C17.39,4.59 20.5,8.58 19.96,12.97C19.5,16.61 16.64,19.5 13,19.93V21.93C18.5,21.38 22.5,16.5 21.95,11C21.5,6.25 17.73,2.5 13,2.03M11,2.06C9.05,2.25 7.19,3 5.67,4.26L7.1,5.74C8.22,4.84 9.57,4.26 11,4.06V2.06M4.26,5.67C3,7.19 2.25,9.04 2.05,11H4.05C4.24,9.58 4.8,8.23 5.69,7.1L4.26,5.67M2.06,13C2.26,14.96 3.03,16.81 4.27,18.33L5.69,16.9C4.81,15.77 4.24,14.42 4.06,13H2.06M7.1,18.37L5.67,19.74C7.18,21 9.04,21.79 11,22V20C9.58,19.82 8.23,19.25 7.1,18.37M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+                            </svg>
+                            <svg *ngIf="table.title === 'Terminé'" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                            </svg>
+                        </div>
+                        <h2>{{table.title}}</h2>
+                    </div>
+                    <span class="task-count">{{table.tasks.length}}</span>
+                </div>
+
+                <div class="tasks-list">
+                    <div cdkDrag [cdkDragData]="task" class="task-card" 
+                        [attr.data-column]="table.title" *ngFor="let task of table.tasks">
+                        <div class="task-content">
+                            <h3>{{task.name}}</h3>
+                            <div class="task-meta">
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+                                    </svg>
+                                    <span>{{ table.title === 'A faire' ? (task.date | date:'short') : (task.update | date:'short')}}</span>
                                 </div>
-                                <div class="name">
-                                    <p>{{task.username}}</p>
-                                    <img src="/people.png" alt="">
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                                    </svg>
+                                    <span>{{task.username}}</span>
                                 </div>
                             </div>
                         </div>
@@ -36,17 +65,33 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal" *ngIf="modal">
-            <div class="div">
-                <header>
-                    <div><img src="add_task.png" alt="">Ajouter une tache</div>
-                    <button class="buttonClose" (click)="openCloseModal()"><img class="close" src="close.png" alt="" ></button>
-                </header>
-                <div class="modalBody">
-                    <input type="text">
-                    <button (click)="addtask()">Ajouter</button>
+    <div class="modal-overlay" *ngIf="modal" (click)="openCloseModal()">
+        <div class="modal-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                        </svg>
+                    </div>
+                    <h3>Nouvelle tâche</h3>
                 </div>
+                <button class="close-btn" (click)="openCloseModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" placeholder="Nom de la tâche..." #taskInput>
+                <button class="submit-btn" (click)="addtask()">
+                    <span>Ajouter</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>

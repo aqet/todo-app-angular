@@ -1,17 +1,18 @@
-import { NgFor } from '@angular/common';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { ThemeService } from '../service/theme.service';
 
 @Component({
   selector: 'app-header',
-  imports: [NgFor],
+  imports: [NgFor, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authservice: AuthService){}
+  constructor(private authservice: AuthService, public themeService: ThemeService){}
 
   public navigation: any = ['Tableau de bord', 'Projets', 'Equipe'];
   name: string = 'none';
