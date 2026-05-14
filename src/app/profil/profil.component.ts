@@ -12,13 +12,38 @@ export class ProfilComponent implements OnInit {
   user: any = null;
 constructor(private authservice: AuthService) { }
   ngOnInit() {
-    this.user = {
-      "username": "ii2",
-      "email": "tientcheuigorcarel@gmail.com",
-      "createdAt": "2025-12-04T17:20:04.203+00:00",
-      "updatedAt": "2026-01-12T13:05:09.421+00:00",
-      "profilePhoto": 'http://localhost:3000' + JSON.parse(localStorage.getItem('imageUrl') || '')
-    };
+    this.loadProfile();
+  }
+
+  loadProfile() {
+    this.authservice.getProfile().subscribe({
+      next: (data: any) => {
+        this.user = {
+          ...data,
+          profilePhoto: data.imageUrl ? `http://localhost:3000${data.imageUrl}` : null,
+        };
+        localStorage.setItem('imageUrl', JSON.stringify(data.imageUrl || ''));
+      },
+      error: (err) => {
+        console.error('Impossible de charger le profil', err);
+        const storedUser = localStorage.getItem('user');
+        const storedMail = localStorage.getItem('mail');
+        const storedImageUrl = localStorage.getItem('imageUrl');
+
+        if (storedUser) {
+          this.user = {
+            username: JSON.parse(storedUser),
+            email: storedMail ? JSON.parse(storedMail) : '',
+            profilePhoto:
+              storedImageUrl && storedImageUrl !== '""'
+                ? `http://localhost:3000${JSON.parse(storedImageUrl)}`
+                : null,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
+        }
+      },
+    });
   }
 
   formatDate(dateString: string): string {
@@ -35,20 +60,17 @@ constructor(private authservice: AuthService) { }
     input.accept = 'image/*';
     input.onchange = (event: any) => {
       const file = event.target.files[0];
-      // console.log("file", file);
-      
       if (file) {
-        // const reader = new FileReader();
-        // let files
-        // reader.onload = (e: any) => {
-        //   this.user.profilePhoto = e.target.result;
-        //   files = e.target
-          
-        // };
-        // reader.readAsDataURL(file);
-        this.authservice.updatePhoto(file).subscribe()
-        console.log(file);
-        
+        this.authservice.updatePhoto(file).subscribe({
+          next: (res: any) => {
+            const imageUrl = res.imageUrl || '';
+            this.user.profilePhoto = imageUrl ? `http://localhost:3000${imageUrl}` : null;
+            localStorage.setItem('imageUrl', JSON.stringify(imageUrl));
+          },
+          error: (err) => {
+            console.error('Erreur lors de la mise à jour de la photo', err);
+          },
+        });
       }
     };
     input.click();

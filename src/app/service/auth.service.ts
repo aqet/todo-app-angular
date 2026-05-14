@@ -41,8 +41,18 @@ export class AuthService {
     this.router.navigateByUrl('/auth');
   }
 
+  private getStorageValue(key: string): string {
+    const stored = localStorage.getItem(key);
+    if (!stored) return '';
+    try {
+      return JSON.parse(stored);
+    } catch {
+      return stored;
+    }
+  }
+
   getUserName(id: string) {
-    const accessToken = JSON.parse(localStorage.getItem('token') || '');
+    const accessToken = this.getToken();
 
     return this.http.post(
       'http://localhost:3000/auth/user',
@@ -57,35 +67,58 @@ export class AuthService {
   }
 
   refreshToken() {
-    const accessToken = JSON.parse(localStorage.getItem('RefreshToken') || '');
+    const accessToken = localStorage.getItem('RefreshToken');
+    if (!accessToken) return this.http.post('http://localhost:3000/auth/refresh', { token: '' }, {} as any);
+
+    let refreshToken = '';
+    try {
+      refreshToken = JSON.parse(accessToken);
+    } catch {
+      refreshToken = accessToken;
+    }
+
     return this.http.post(
       'http://localhost:3000/auth/refresh',
-      { token: accessToken },
+      { token: refreshToken },
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + accessToken,
+          Authorization: 'Bearer ' + refreshToken,
         }),
       },
     );
   }
 
-  updatePhoto(file: any) {
-    // const accessToken = JSON.parse(localStorage.getItem('token') || '');
-    console.log(file);
+  private getToken(): string {
+    const stored = localStorage.getItem('token');
+    if (!stored) return '';
+    try {
+      return JSON.parse(stored);
+    } catch {
+      return stored;
+    }
+  }
 
+  getProfile() {
+    const accessToken = this.getToken();
+    return this.http.get('http://localhost:3000/auth/me', {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + accessToken,
+      }),
+    });
+  }
+
+  updatePhoto(file: any) {
+    const accessToken = this.getToken();
     const formData = new FormData();
     formData.append('image', file);
-    formData.append('Username', JSON.parse(localStorage.getItem('user') || ''));
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-    // const elementsssss = {
-    //   Username: JSON.parse(localStorage.getItem('user') || ''),
-    //   formData,
-    // };
-    // console.log(elementsssss);
+    formData.append('Username', this.getStorageValue('user'));
 
-    return this.http.post('http://localhost:3000/auth/update-photo',formData);
+    return this.http.post('http://localhost:3000/auth/update-photo', formData, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + accessToken,
+      }),
+    });
   }
 }

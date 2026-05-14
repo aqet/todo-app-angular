@@ -46,8 +46,10 @@ export class AuthComponent {
             (res: any) => (
               localStorage.setItem('user', JSON.stringify(res.Username)),
               localStorage.setItem('mail', JSON.stringify(res.Mail)),
+              localStorage.setItem('id', JSON.stringify(res.id)),
               localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
               localStorage.setItem('token', JSON.stringify(res.token)),
+              localStorage.setItem('imageUrl', JSON.stringify(res.imageUrl || '')),
               localStorage.setItem(
                 'RefreshToken',
                 JSON.stringify(res.RefreshToken),
@@ -61,9 +63,10 @@ export class AuthComponent {
             res.isLogged == true
               ? (localStorage.setItem('user', JSON.stringify(res.Username)),
                 localStorage.setItem('mail', JSON.stringify(res.Mail)),
+                localStorage.setItem('id', JSON.stringify(res.id)),
                 localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
                 localStorage.setItem('token', JSON.stringify(res.token)),
-                localStorage.setItem('imageUrl', JSON.stringify(res.imageUrl)),
+                localStorage.setItem('imageUrl', JSON.stringify(res.imageUrl || '')),
                 localStorage.setItem(
                   'RefreshToken',
                   JSON.stringify(res.RefreshToken),
