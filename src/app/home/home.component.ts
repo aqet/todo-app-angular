@@ -128,6 +128,31 @@ export class HomeComponent implements OnInit {
     return this.authService.getUserName(id);
   }
 
+  deleteTask(title: string, taskId: string) {
+    this.taskService.deleteTask(title, taskId).subscribe({
+      next: () => {
+        this.gettask();
+      },
+      error: (err) => {
+        if (err.message.includes('Unauthorized')) {
+          this.authService.refreshToken().subscribe(
+            (res: any) => {
+              localStorage.setItem('token', JSON.stringify(res.token));
+              localStorage.setItem(
+                'RefreshToken',
+                JSON.stringify(res.RefreshToken)
+              );
+              this.gettask();
+            },
+            () => {
+              this.authService.logout();
+            }
+          );
+        }
+      },
+    });
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(

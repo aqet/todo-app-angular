@@ -13,6 +13,11 @@
     margin: auto;
     padding: 0 24px;
 
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
     h1 {
       color: var(--text-primary);
       cursor: pointer;

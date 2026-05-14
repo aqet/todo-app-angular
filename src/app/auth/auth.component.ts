@@ -20,7 +20,7 @@ export class AuthComponent {
   constructor(
     private fb: FormBuilder,
     private authservice: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     this.form = this.fb.group({
       email: [''],
@@ -48,48 +48,54 @@ export class AuthComponent {
               localStorage.setItem('mail', JSON.stringify(res.Mail)),
               localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
               localStorage.setItem('token', JSON.stringify(res.token)),
-              localStorage.setItem('RefreshToken', JSON.stringify(res.RefreshToken)),
+              localStorage.setItem(
+                'RefreshToken',
+                JSON.stringify(res.RefreshToken),
+              ),
               this.router.navigateByUrl('/home')
-            )
+            ),
           )
-      : ((res = this.authservice
+      : (res = this.authservice
           .login(this.form.value.Username, this.form.value.password)
           .subscribe((res: any) => {
-            res.isLogged == true ? (
-            localStorage.setItem('user', JSON.stringify(res.Username)),
-            localStorage.setItem('mail', JSON.stringify(res.Mail)),
-              localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
-              localStorage.setItem('token', JSON.stringify(res.token)),
-              localStorage.setItem('RefreshToken', JSON.stringify(res.RefreshToken)),
-              this.router.navigateByUrl('/home')
-            ):(
-              alert('Login failed! Please check your username and password.')
-            )
-          }))
+            res.isLogged == true
+              ? (localStorage.setItem('user', JSON.stringify(res.Username)),
+                localStorage.setItem('mail', JSON.stringify(res.Mail)),
+                localStorage.setItem('isloged', JSON.stringify(res.isLogged)),
+                localStorage.setItem('token', JSON.stringify(res.token)),
+                localStorage.setItem('imageUrl', JSON.stringify(res.imageUrl)),
+                localStorage.setItem(
+                  'RefreshToken',
+                  JSON.stringify(res.RefreshToken),
+                ),
+                
+                this.router.navigateByUrl('/home'))
+              : alert('Login failed! Please check your username and password.');
+          }));
         // res ? this.router.navigateByUrl('/home') : '');
-  )}
+  }
 
   switchTo() {
     if (this.mode == 'login') {
       const element = document.querySelector(
-        '.rightSideBarContent'
+        '.rightSideBarContent',
       ) as HTMLElement;
       // console.log(element);
       if (element) {
         if (element.parentElement)
-          (element.parentElement.style.justifyContent = 'start'),
-            (element.style.borderRadius = '0 10px 50% 0');
+          ((element.parentElement.style.justifyContent = 'start'),
+            (element.style.borderRadius = '0 10px 50% 0'));
       }
       this.mode = 'register';
     } else {
       const element = document.querySelector(
-        '.rightSideBarContent'
+        '.rightSideBarContent',
       ) as HTMLElement;
       // console.log(element);
       if (element) {
         if (element.parentElement)
-          (element.parentElement.style.justifyContent = 'end'),
-            (element.style.borderRadius = '10px 0 0 50%');
+          ((element.parentElement.style.justifyContent = 'end'),
+            (element.style.borderRadius = '10px 0 0 50%'));
       }
       this.mode = 'login';
     }

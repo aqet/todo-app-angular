@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { ThemeService } from '../service/theme.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ import { ThemeService } from '../service/theme.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authservice: AuthService, public themeService: ThemeService){}
+  constructor(private authservice: AuthService, public themeService: ThemeService, private router: Router){}
 
   public navigation: any = ['Tableau de bord', 'Projets', 'Equipe'];
   name: string = 'none';

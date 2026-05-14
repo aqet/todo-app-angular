@@ -70,4 +70,17 @@ export class taskService {
       .subscribe();
     // localStorage.setItem('tasks', JSON.stringify(task));
   }
+
+  deleteTask(title: string, taskId: string) {
+    const accessToken = JSON.parse(localStorage.getItem('token') || '');
+    return this.http.delete(
+      `http://localhost:3000/todos/${encodeURIComponent(title)}/task/${encodeURIComponent(taskId)}`,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        }),
+      }
+    );
+  }
 }

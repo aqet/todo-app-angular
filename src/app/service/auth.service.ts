@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private router: Router, private http: HttpClient) {}
-  
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+  ) {}
 
   register(info: {}) {
     return this.http.post('http://localhost:3000/auth/register', info);
@@ -41,23 +43,49 @@ export class AuthService {
 
   getUserName(id: string) {
     const accessToken = JSON.parse(localStorage.getItem('token') || '');
-    
-    return this.http.post('http://localhost:3000/auth/user', {id: id}, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + accessToken,
-      }),
-    });
+
+    return this.http.post(
+      'http://localhost:3000/auth/user',
+      { id: id },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        }),
+      },
+    );
   }
 
-  refreshToken(){
+  refreshToken() {
     const accessToken = JSON.parse(localStorage.getItem('RefreshToken') || '');
-    return this.http.post('http://localhost:3000/auth/refresh', {token: accessToken}, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + accessToken,
-      }),
-    });
+    return this.http.post(
+      'http://localhost:3000/auth/refresh',
+      { token: accessToken },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        }),
+      },
+    );
+  }
 
+  updatePhoto(file: any) {
+    // const accessToken = JSON.parse(localStorage.getItem('token') || '');
+    console.log(file);
+
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('Username', JSON.parse(localStorage.getItem('user') || ''));
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+    // const elementsssss = {
+    //   Username: JSON.parse(localStorage.getItem('user') || ''),
+    //   formData,
+    // };
+    // console.log(elementsssss);
+
+    return this.http.post('http://localhost:3000/auth/update-photo',formData);
   }
 }
