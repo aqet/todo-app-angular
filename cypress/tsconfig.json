@@ -1,0 +1,9 @@
+{
+  // tsconfig dédié à Cypress : il utilise les types "cypress" (et non "jasmine"),
+  // ce qui évite tout conflit avec les tests unitaires Karma/Jasmine.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["cypress", "node"]
+  },
+  "include": ["**/*.ts"]
+}

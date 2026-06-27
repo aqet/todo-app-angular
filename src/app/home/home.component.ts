@@ -11,7 +11,6 @@ import {
 import { ViewChildren, QueryList } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../service/auth.service';
-import { error } from 'node:console';
 
 @Component({
   selector: 'app-home',
